@@ -3,287 +3,871 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-<title>北京 → 深圳 · 4天3晚路书</title>
+<title>北京 → 深圳 · 4-5天 自驾/高铁双方案路书</title>
 <style>
-*{margin:0;padding:0;box-sizing:border-box}
-:root{
-  --bg:#F3F8FC;--surface:#FFFFFF;--tint:#EAF3FA;
-  --t1:#123A5C;--t2:#41617F;--t3:#7A93A8;
-  --acc:#0E7CB8;--acc-h:#0A6A9E;--on:#FFFFFF;
-  --good:#0E7C3A;--warn:#B45309;--bad:#C62F1F;
-  --radius:16px;--bstr:10%;
-  --border:color-mix(in srgb,var(--t1) var(--bstr),transparent);
-  --card:var(--surface);
-}
-html{scroll-behavior:auto}
-body{background:var(--bg);color:var(--t2);font-family:-apple-system,'PingFang SC','Microsoft YaHei',sans-serif;line-height:1.6}
-h1,h2,h3,h4{color:var(--t1);line-height:1.25}
-.container{max-width:1040px;margin:0 auto;padding:0 20px}
+  :root{
+    --bg:#F7F9FC; --tint:#EAF0F8; --surface:#FFFFFF;
+    --t1:#12233B; --t2:#3E5C7E; --t3:#7C92AC;
+    --acc:#0E7C6A; --acc-h:#0A6456; --on:#FFFFFF;
+    --acc2:#F5A623;
+    --good:#0E7C3A; --warn:#B45309; --bad:#C62F1F;
+    --radius:18px; --btnr:980px; --bstr:10%;
+    --ctrl:min(var(--radius),14px);
+    --border:color-mix(in srgb,var(--t1) var(--bstr),transparent);
+    --disp:-apple-system,'SF Pro Display','PingFang SC','Microsoft YaHei',sans-serif;
+    --body:var(--disp);
+    --shadow:0 2px 10px rgba(14,124,106,.08);
+  }
+  *{margin:0;padding:0;box-sizing:border-box;corner-shape:squircle}
+  html{scroll-behavior:auto}
+  body{background:var(--bg);color:var(--t2);font-family:var(--body);line-height:1.6;-webkit-font-smoothing:antialiased}
+  a{text-decoration:none;color:inherit}
+  img{max-width:100%;display:block}
 
-/* 头部 */
-header{background:var(--surface);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:50;backdrop-filter:blur(8px)}
-.header-inner{max-width:1040px;margin:0 auto;padding:10px 20px;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
-.brand{font-weight:800;color:var(--t1);font-size:16px}
-.nav-links{display:flex;gap:6px;flex-wrap:wrap;margin-left:auto}
-.nav-links a{display:inline-block;padding:6px 12px;border-radius:999px;text-decoration:none;color:var(--t2);font-size:13px;border:1px solid transparent;transition:.2s}
-.nav-links a.active{background:var(--acc);color:var(--on)}
-.nav-links a:not(.active):hover{border-color:var(--acc);color:var(--acc)}
+  .nav{position:sticky;top:0;z-index:100;background:rgba(255,255,255,.9);backdrop-filter:blur(10px);border-bottom:1px solid var(--border)}
+  .nav-inner{max-width:1060px;margin:0 auto;padding:10px 16px;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+  .nav-brand{font-weight:800;color:var(--t1);font-size:15px;display:flex;align-items:center;gap:8px;white-space:nowrap}
+  .nav-brand .logo{width:22px;height:22px;background:var(--acc);border-radius:50%;display:inline-flex;align-items:center;justify-content:center;color:var(--on);font-size:12px}
+  .nav-links{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;flex:1;min-width:0}
+  .nav-links::-webkit-scrollbar{display:none}
+  .nav-links a{font-size:12.5px;padding:5px 11px;border-radius:var(--btnr);color:var(--t2);white-space:nowrap;font-weight:600;transition:.2s}
+  .nav-links a:hover{background:var(--tint);color:var(--t1)}
+  .nav-links a.active{background:var(--acc);color:var(--on)}
 
-/* Hero */
-.hero{background:linear-gradient(135deg,#0B3A5E 0%,#0E7CB8 55%,#1FA7A0 100%);color:#fff;padding:56px 20px 40px;text-align:center}
-.hero h1{color:#fff;font-size:28px;margin-bottom:8px}
-.hero .sub{color:#CFE8F6;margin-bottom:18px;max-width:560px;margin-left:auto;margin-right:auto}
-.stamp{display:inline-block;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.35);padding:6px 14px;border-radius:999px;font-size:12px;margin-top:8px}
-.params{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;max-width:760px;margin:22px auto 0}
-.param{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.25);border-radius:var(--radius);padding:10px 14px;text-align:left}
-.param b{display:block;color:#fff;font-size:12px;font-weight:600;opacity:.85}
-.param span{color:#fff;font-size:14px;font-weight:700}
+  .hero{position:relative;width:100%;height:100svh;min-height:100vh;display:flex;align-items:flex-end;overflow:hidden}
+  .hero .bg{position:absolute;inset:0;background-image:url('https://images.unsplash.com/photo-1634647626782-f5fffa9fd9b1?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1600');background-size:cover;background-position:center}
+  .hero::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(6,18,32,.15) 0%,rgba(6,18,32,.45) 55%,rgba(6,18,32,.82) 100%)}
+  .hero-content{position:relative;z-index:2;max-width:1060px;margin:0 auto;width:100%;padding:40px 20px 48px}
+  .hero .eyebrow{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.28);color:#fff;padding:6px 14px;border-radius:var(--btnr);font-size:12.5px;font-weight:700;letter-spacing:.5px;backdrop-filter:blur(4px)}
+  .hero h1{color:#fff;font-size:clamp(30px,7vw,58px);font-weight:800;line-height:1.15;margin:18px 0 6px;letter-spacing:-.5px}
+  .hero .sub{color:rgba(255,255,255,.92);font-size:clamp(14px,3.4vw,19px);max-width:640px;margin-bottom:26px}
+  .hero-params{display:flex;gap:10px;flex-wrap:wrap}
+  .hero-params .p{background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.24);color:#fff;border-radius:12px;padding:9px 14px;font-size:12.5px;backdrop-filter:blur(4px);display:flex;align-items:center;gap:6px}
+  .hero-params .p b{font-size:16px;font-weight:800}
+  .hero .meta{color:rgba(255,255,255,.7);font-size:12px;margin-top:16px;display:flex;align-items:center;gap:6px}
 
-/* section */
-section{margin:28px 0}
-.sect-head{font-size:22px;margin-bottom:4px}
-.sect-sub{color:var(--t3);font-size:14px;margin-bottom:16px}
-.map-frame{width:100%;border-radius:var(--radius);overflow:hidden;border:1px solid var(--border);background:var(--tint);margin:10px 0}
-.map-frame iframe{width:100%;height:420px;border:0;display:block}
-.map-frame.tall iframe{height:460px}
+  .wrap{max-width:1060px;margin:0 auto;padding:0 18px}
+  .section-pad{padding:56px 18px}
+  .section-title{margin-bottom:28px}
+  .section-title .eyebrow{color:var(--acc);font-weight:800;font-size:13px;letter-spacing:1px;text-transform:uppercase;display:flex;align-items:center;gap:8px;margin-bottom:8px}
+  .section-title .eyebrow .line{width:28px;height:3px;background:var(--acc);border-radius:3px}
+  .section-title h2{color:var(--t1);font-size:clamp(22px,4.6vw,32px);font-weight:800;line-height:1.2}
+  .section-title p{color:var(--t3);margin-top:6px;font-size:14px;max-width:720px}
 
-/* day card */
-.day{background:var(--surface);border-radius:var(--radius);padding:20px;margin:22px 0;border:1px solid var(--border)}
-.day-head{display:flex;align-items:center;gap:12px;margin-bottom:12px}
-.day-tag{background:var(--acc);color:var(--on);border-radius:999px;padding:4px 12px;font-size:12px;font-weight:700;flex-shrink:0}
-.day-head h3{font-size:19px}
-.meta-row{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px}
-.meta-chip{background:var(--tint);border-radius:999px;padding:5px 12px;font-size:12.5px;color:var(--t1)}
-.sub{font-size:15px;margin:16px 0 8px;color:var(--t1)}
-.timeline{display:flex;flex-direction:column;gap:0}
-.tl-item{display:flex;gap:14px;position:relative;padding:0 0 16px 8px}
-.tl-item::before{content:"";position:absolute;left:52px;top:26px;bottom:-4px;width:2px;background:var(--border)}
-.tl-item:last-child::before{display:none}
-.tl-time{width:52px;flex-shrink:0;font-weight:800;color:var(--acc);font-size:13px;padding-top:1px}
-.tl-body b{color:var(--t1);font-size:14.5px}
-.tl-body p{color:var(--t2);font-size:13px;margin-top:2px}
-.nav-btn{display:block;width:100%;text-align:center;background:var(--acc);color:var(--on);border-radius:999px;padding:12px;font-weight:700;text-decoration:none;margin:10px 0;font-size:15px}
-.nav-btn:hover{background:var(--acc-h);color:var(--on)}
-.hotel{background:var(--tint);border-radius:12px;padding:12px 14px;font-size:14px;color:var(--t1)}
-.food-list{margin:6px 0 0 20px;color:var(--t2);font-size:14px}
-.food-list li{margin:4px 0}
-.spots{display:flex;flex-direction:column;gap:10px}
-.spot{border:1px solid var(--border);border-radius:12px;overflow:hidden;background:var(--tint)}
-.fold-btn{width:100%;display:flex;justify-content:space-between;align-items:center;gap:10px;background:transparent;border:0;padding:13px 16px;cursor:pointer;font-size:15px;font-weight:700;color:var(--t1);font-family:inherit}
-.fold-arrow{transition:transform .25s;color:var(--acc)}
-.spot.open .fold-arrow{transform:rotate(180deg)}
-.fold-body{display:none;padding:0 16px 16px;border-top:1px solid var(--border)}
-.spot.open .fold-body{display:block}
-.spot-intro{color:var(--t1);font-size:14px;margin:12px 0 8px}
-.fold-body ul{margin:0 0 0 20px;color:var(--t2);font-size:13.5px}
-.fold-body li{margin:4px 0}
-.day-foot{margin-top:14px;font-size:12px;color:var(--t3);background:var(--tint);border-radius:8px;padding:8px 12px}
+  .grid-overview{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-bottom:16px}
+  .ov-card{background:var(--surface);border-radius:var(--radius);padding:18px;border:1px solid var(--border)}
+  .ov-card .ic{font-size:20px;margin-bottom:6px}
+  .ov-card .val{color:var(--t1);font-weight:800;font-size:20px;line-height:1.2}
+  .ov-card .lbl{color:var(--t3);font-size:12px;margin-top:3px}
+  .tagline{background:var(--tint);border-radius:var(--radius);padding:18px 20px;font-size:14.5px;color:var(--t2);margin-bottom:16px;border-left:4px solid var(--acc);line-height:1.7}
+  .tagline b{color:var(--t1)}
 
-/* appendix */
-.appendix{background:var(--surface);border-radius:var(--radius);padding:20px;border:1px solid var(--border)}
-.appendix h4{margin:14px 0 6px}
-.appendix ul{margin-left:20px;color:var(--t2);font-size:14px}
-.appendix li{margin:4px 0}
-.badge{display:inline-block;border-radius:999px;padding:2px 8px;font-size:11px;font-weight:700;margin-left:6px}
-.badge.real{background:#DDF3E4;color:var(--good)}
-.badge.est{background:#FCE8E0;color:var(--warn)}
-.src{font-size:12px;color:var(--t3);margin-top:14px;border-top:1px solid var(--border);padding-top:10px}
-footer{text-align:center;color:var(--t3);font-size:12px;padding:30px 20px}
-@media(min-width:700px){
-  .day{padding:26px}
-  .tl-item{gap:18px}
-}
+  .map-card{background:var(--surface);border-radius:var(--radius);padding:16px;border:1px solid var(--border);margin-bottom:18px}
+  .map-card .mcap{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:6px;margin-bottom:8px}
+  .map-card .mcap .tt{color:var(--t1);font-weight:700;font-size:14px;display:flex;align-items:center;gap:6px}
+  .map-card .mcap .note{color:var(--t3);font-size:11px}
+  .map-card .map{width:100%}
+
+  .elev{background:var(--surface);border-radius:var(--radius);padding:20px;border:1px dashed var(--acc);display:flex;align-items:flex-start;gap:14px}
+  .elev .ic{width:40px;height:40px;border-radius:12px;background:var(--tint);display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0}
+  .elev h4{color:var(--t1);font-size:15px;font-weight:700;margin-bottom:4px}
+  .elev p{font-size:13px;color:var(--t2)}
+
+  .tabs{display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap}
+  .tab-btn{padding:9px 18px;border-radius:var(--btnr);border:1px solid var(--border);background:var(--surface);color:var(--t2);font-size:13.5px;font-weight:700;cursor:pointer;transition:.2s}
+  .tab-btn:hover{background:var(--tint)}
+  .tab-btn.active{background:var(--acc);color:var(--on);border-color:var(--acc)}
+  .tab-panel{display:none}
+  .tab-panel.active{display:block}
+  .mode-table{width:100%;border-collapse:collapse;background:var(--surface);border-radius:12px;overflow:hidden;border:1px solid var(--border);font-size:13.5px}
+  .mode-table th{background:var(--tint);color:var(--t1);padding:11px 12px;text-align:left;font-weight:700;white-space:nowrap}
+  .mode-table td{padding:11px 12px;border-top:1px solid var(--border);color:var(--t2);vertical-align:top}
+  .mode-table tr:nth-child(even) td{background:var(--tint)}
+  .mode-table b{color:var(--t1)}
+
+  .day-card{background:var(--surface);border-radius:var(--radius);border:1px solid var(--border);padding:22px;margin-bottom:22px;scroll-margin-top:70px}
+  .day-head{display:flex;align-items:flex-start;gap:14px;margin-bottom:16px;flex-wrap:wrap}
+  .day-num{width:46px;height:46px;border-radius:14px;background:linear-gradient(135deg,var(--acc),#1FA98F);color:var(--on);display:flex;flex-direction:column;align-items:center;justify-content:center;flex-shrink:0}
+  .day-num .d{font-size:11px;font-weight:700;opacity:.85}
+  .day-num .n{font-size:20px;font-weight:800;line-height:1}
+  .day-title{flex:1;min-width:200px}
+  .day-title h3{color:var(--t1);font-size:20px;font-weight:800;line-height:1.3}
+  .day-title .sub{color:var(--t3);font-size:13px;margin-top:4px;display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+  .badge-t{display:inline-flex;align-items:center;gap:5px;background:var(--tint);color:var(--t1);padding:3px 10px;border-radius:var(--btnr);font-size:11.5px;font-weight:700}
+  .badge-drive{background:#EAF4EE;color:#1E6E44}
+  .badge-train{background:#EDEAFB;color:#5B3FB0}
+
+  .info-grid{display:grid;grid-template-columns:1fr;gap:10px;margin:14px 0}
+  @media(min-width:640px){.info-grid{grid-template-columns:1fr 1fr}}
+  .info-item{background:var(--tint);border-radius:12px;padding:11px 13px;display:flex;gap:10px;align-items:flex-start}
+  .info-item .iic{flex-shrink:0;width:22px;height:22px;border-radius:7px;background:var(--surface);display:flex;align-items:center;justify-content:center;font-size:13px;margin-top:1px}
+  .info-item .ilb{color:var(--t3);font-size:11px;font-weight:700;letter-spacing:.5px}
+  .info-item .ival{color:var(--t1);font-size:13.5px;font-weight:600;margin-top:1px}
+  .info-item .ival small{color:var(--t2);font-weight:400}
+
+  .tag{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:700;padding:2px 8px;border-radius:var(--btnr)}
+  .tag.real{background:color-mix(in srgb,var(--good) 15%,var(--surface));color:var(--good)}
+  .tag.est{background:color-mix(in srgb,var(--t3) 18%,var(--surface));color:var(--t2)}
+
+  .spot-block{margin-top:14px;border:1px solid var(--border);border-radius:14px;overflow:hidden}
+  .spot-head{width:100%;background:var(--surface);border:none;padding:14px 16px;display:flex;align-items:center;justify-content:space-between;gap:10px;cursor:pointer;text-align:left;font-family:inherit;transition:background .2s}
+  .spot-head:hover{background:var(--tint)}
+  .spot-head .sh{display:flex;align-items:center;gap:12px;min-width:0}
+  .spot-head .si{width:34px;height:34px;border-radius:10px;background:var(--tint);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+  .spot-head .st{font-weight:800;color:var(--t1);font-size:15px;line-height:1.3}
+  .spot-head .st small{display:block;color:var(--t3);font-weight:600;font-size:12px;margin-top:1px}
+  .spot-head .arw{width:20px;height:20px;flex-shrink:0;transition:transform .3s;color:var(--t3)}
+  .spot-body{display:none;padding:6px 16px 16px;background:var(--surface);border-top:1px solid var(--border)}
+  .spot-block.open .spot-body{display:block}
+  .spot-block.open .arw{transform:rotate(180deg)}
+  .spot-body .seg{margin-top:12px}
+  .spot-body .seg h5{color:var(--acc);font-size:13px;font-weight:800;display:flex;align-items:center;gap:6px;margin-bottom:6px;letter-spacing:.3px}
+  .spot-body ul{list-style:none;padding-left:4px}
+  .spot-body ul li{font-size:13.5px;color:var(--t2);padding:4px 0 4px 20px;position:relative;line-height:1.55}
+  .spot-body ul li::before{content:"";position:absolute;left:4px;top:12px;width:7px;height:7px;border-radius:2px;background:var(--acc);opacity:.55}
+  .spot-body .meal-chips{display:flex;flex-wrap:wrap;gap:7px;margin-top:4px}
+  .spot-body .meal-chips .chip{background:var(--tint);color:var(--t1);padding:5px 11px;border-radius:var(--btnr);font-size:12px;font-weight:600}
+
+  .nav-btn{display:block;width:100%;background:linear-gradient(135deg,var(--acc),#1FA98F);color:var(--on);text-align:center;padding:14px;border-radius:14px;font-weight:800;font-size:15px;letter-spacing:.5px;margin-top:14px;transition:.2s;border:none;cursor:pointer;box-shadow:var(--shadow)}
+  .nav-btn:hover{background:linear-gradient(135deg,var(--acc-h),#177E6B);transform:translateY(-1px)}
+  .nav-btn .ic{font-size:16px;margin-right:4px}
+
+  .stay-food{display:grid;grid-template-columns:1fr;gap:10px;margin-top:14px}
+  @media(min-width:640px){.stay-food{grid-template-columns:1fr 1fr}}
+  .sf-card{background:var(--tint);border-radius:14px;padding:14px 15px}
+  .sf-card h5{font-size:13px;font-weight:800;color:var(--t1);display:flex;align-items:center;gap:7px;margin-bottom:8px}
+  .sf-card .sfi{font-size:14.5px;color:var(--t2);line-height:1.55}
+  .sf-card .sfi b{color:var(--t1)}
+  .sf-card .sfi small{color:var(--t3)}
+
+  .day-imgs{margin-top:14px;display:grid;grid-template-columns:1fr;gap:10px}
+  @media(min-width:900px){.day-imgs{grid-template-columns:1fr 1fr}}
+  .img-card{overflow:hidden;border-radius:14px;background:var(--tint)}
+  .img-card img{width:100%;height:auto}
+  .img-card .cap{font-size:12px;color:var(--t3);padding:8px 11px;display:flex;align-items:center;justify-content:space-between;gap:6px;flex-wrap:wrap}
+  .img-card .cap a{color:var(--acc)}
+
+  .appendix .grid{display:grid;grid-template-columns:1fr;gap:12px}
+  @media(min-width:640px){.appendix .grid{grid-template-columns:1fr 1fr}}
+  .appx-card{background:var(--surface);border-radius:var(--radius);padding:18px;border:1px solid var(--border)}
+  .appx-card h4{color:var(--t1);font-size:15px;font-weight:800;display:flex;align-items:center;gap:8px;margin-bottom:10px}
+  .appx-card ul{list-style:none}
+  .appx-card ul li{font-size:13.5px;color:var(--t2);padding:5px 0 5px 20px;position:relative;line-height:1.5}
+  .appx-card ul li::before{content:"";position:absolute;left:4px;top:13px;width:7px;height:7px;border-radius:2px;background:var(--acc2)}
+  .appx-card ul li b{color:var(--t1)}
+  .foot{max-width:1060px;margin:0 auto;padding:26px 18px 40px;color:var(--t3);font-size:12px;line-height:1.8;border-top:1px solid var(--border)}
+  .stamp{background:var(--tint);border-radius:12px;padding:14px 16px;font-size:13px;color:var(--t2);margin-bottom:16px;display:flex;align-items:flex-start;gap:10px}
+  .stamp .sic{flex-shrink:0}
+  .stamp b{color:var(--t1)}
+
+  @media (prefers-reduced-motion: reduce){*{transition:none!important}}
 </style>
 </head>
-<body>
-<header>
-  <div class="header-inner">
-    <div class="brand">🚄 北京 → 深圳 · 路书</div>
-    <nav class="nav-links">
-      <a href="#overview">概览</a>
-      <a href="#day1">DAY1</a>
-      <a href="#day2">DAY2</a>
-      <a href="#day3">DAY3</a>
-      <a href="#day4">DAY4</a>
+<body data-theme="custom">
+
+<!-- 顶部导航 -->
+<nav class="nav">
+  <div class="nav-inner">
+    <div class="nav-brand"><span class="logo">深</span>北京→深圳 · 山海都市之旅</div>
+    <div class="nav-links">
+      <a href="#overview" class="active">总览</a>
+      <a href="#day1">D1</a><a href="#day2">D2</a><a href="#day3">D3</a><a href="#day4">D4</a><a href="#day5">D5</a>
       <a href="#appendix">附录</a>
-    </nav>
+    </div>
+  </div>
+</nav>
+
+<!-- 首屏头图 -->
+<header class="hero">
+  <div class="bg"></div>
+  <div class="hero-content">
+    <span class="eyebrow">🚀 现代之城 · 山海之间 · 双方案可选</span>
+    <h1>北京 → 深圳<br>4-5 天都市探索路书</h1>
+    <p class="sub">从千年古都飞到南海之滨，在高楼天际线与红树林海岸之间切换——科技、美食、山海、主题乐园一次集齐。高铁/飞机往返 + 深圳当地自驾双方案。</p>
+    <div class="hero-params">
+      <span class="p">总里程<b>约 2400km</b></span>
+      <span class="p">行程<b>4-5 天</b></span>
+      <span class="p">交通<b>高铁/飞机+自驾</b></span>
+      <span class="p">最佳季节<b>10-3 月</b></span>
+      <span class="p">预算<b>3000-5000 元</b></span>
+    </div>
+    <div class="meta">📅 本路书生成于 2026-11-16 · 高铁车次/票价等易变信息请出行前核验</div>
   </div>
 </header>
 
-<div class="hero">
-  <h1>北京 → 深圳 · 鹏城 · 4天3晚</h1>
-  <p class="sub">一条「沿海创新之城」的轻度假路线：一半看山海，一半逛现代都会。适合 4 天慢节奏、亲子/情侣/朋友同游。</p>
-  <div class="stamp">🟢 本路书生成于 2026-11-15，易变信息基于该时刻实时数据，出行前请二次核对</div>
-  <div class="params">
-    <div class="param"><b>总里程</b><span>往返约 4800km（单程 2400km）</span></div><div class="param"><b>总天数</b><span>4 天 3 晚</span></div><div class="param"><b>每日节奏</b><span>每天 09:00 后出发，不赶早</span></div><div class="param"><b>单日里程</b><span>市内约 30–60km</span></div><div class="param"><b>最佳季节</b><span>10 月–次年 4 月（避开暑热）</span></div><div class="param"><b>预算区间</b><span>¥3000–4500/人</span></div>
-  </div>
-</div>
+<div class="wrap">
 
-<div class="container">
-  <section id="overview">
-    <h2 class="sect-head">🗺 全程总览</h2>
-    <p class="sect-sub">含深圳城市总览与北京→深圳驾车路线（高德官方网页内嵌，非 SDK）。</p>
-    
-<div class="map-frame tall"><iframe src="https://www.amap.com/search?query=深圳&city=深圳" loading="lazy" title="深圳城市总览"></iframe></div>
-<div class="map-frame tall"><iframe src="https://www.amap.com/dir?origin=北京&destination=深圳&type=3" loading="lazy" title="北京-深圳驾车路线"></iframe></div>
+<!-- ===== 概览层 ===== -->
+<section id="overview" class="section-pad" style="padding-top:48px">
+  <div class="section-title">
+    <div class="eyebrow"><span class="line"></span>行前总览</div>
+    <h2>一句话看懂这条线</h2>
+    <p>一条「科技新城 + 山海风光 + 主题乐园」的轻快都市线：世界之窗看世界、深圳湾看海、红树林看鸟、大梅沙踏浪，尝遍粤式早茶与海鲜。</p>
+  </div>
 
-  </section>
+  <div class="grid-overview">
+    <div class="ov-card"><div class="ic">📏</div><div class="val">约 2400km</div><div class="lbl">北京↔深圳直线+自驾</div></div>
+    <div class="ov-card"><div class="ic">🗓️</div><div class="val">4-5 天</div><div class="lbl">可长可短灵活调整</div></div>
+    <div class="ov-card"><div class="ic">🚄</div><div class="val">约 3-8h</div><div class="lbl">高铁/飞机单程</div></div>
+    <div class="ov-card"><div class="ic">🏞️</div><div class="val">10-3 月</div><div class="lbl">最佳季节(避暑热)</div></div>
+    <div class="ov-card"><div class="ic">💰</div><div class="val">3000-5000 元</div><div class="lbl">人均预算区间</div></div>
+  </div>
 
-  
-<section class="day" id="day1">
-  <div class="day-head">
-    <span class="day-tag">DAY 1</span>
-    <h3>抵鹏 · 华强北 × 东门老街</h3>
+  <div class="tagline">
+    <b>一句话定位：</b>深圳是「一座建起来才 40 多年的奇迹之城」——这里是中国的硅谷，也是南海边的度假胜地。高楼与山海只隔一条马路，白天在摩天楼里仰望天际线，傍晚就能在海边栈道看日落。适合喜欢现代都市感、爱美食、想带家人或朋友短途放松的旅行者。<br>
+    <b>⚠️ 距离规则：</b>北京到深圳约 2400 公里（超 1000 公里），本路书采用「高铁/飞机往返 + 深圳当地自驾」双方案。当地租车自驾可灵活打卡东西海岸，也可全程地铁+打车（深圳地铁极其发达）。
   </div>
-  <div class="meta-row">
-    <div class="meta-chip">🚄 高铁 · 京港高铁（北京西→深圳北）</div>
-    <div class="meta-chip">北京西站 → 深圳北站 → 罗湖东门（约 8.5h）</div>
+
+  <!-- 全程示意路线图 -->
+  <div class="map-card">
+    <div class="mcap">
+      <div class="tt">🗺️ 全程路线示意（高铁/飞机往返 + 深圳当地自驾）</div>
+      <div class="note">示意图 · 非真实轨迹与比例</div>
+    </div>
+    <div id="routeMap" class="map" style="height:400px"></div>
   </div>
-  <h4 class="sub">⏱ 每日行程（09:00 后出发）</h4>
-  <div class="timeline"><div class="tl-item"><div class="tl-time">09:00</div><div class="tl-body"><b>北京西站 G 字头高铁发车</b><p>京港高铁直达，约 8.5 小时；二等座约 ¥1180–1390。也可选航班（大兴/首都→深圳约 3.5h）。</p></div></div><div class="tl-item"><div class="tl-time">17:30</div><div class="tl-body"><b>抵达深圳北站</b><p>地铁 4 号线转罗湖方向，约 40 分钟到东门；或打车约 ¥60。</p></div></div><div class="tl-item"><div class="tl-time">18:30</div><div class="tl-body"><b>入住酒店</b><p>放下行李，步行范围内即达华强北与东门老街。</p></div></div><div class="tl-item"><div class="tl-time">19:00</div><div class="tl-body"><b>华强北电子市场夜逛</b><p>电子元器件与数码潮品集散地，顺路看看赛格广场灯光。</p></div></div><div class="tl-item"><div class="tl-time">20:30</div><div class="tl-body"><b>东门老街夜市</b><p>深圳百年商业步行街，小吃摊与老字号聚集，越夜越热闹。</p></div></div></div>
-  <h4 class="sub">🗺 本段地图</h4>
-  <div class="map-frame"><iframe src="https://www.amap.com/search?query=东门老街&city=深圳" loading="lazy" title="抵鹏 · 华强北 × 东门老街地图"></iframe></div>
-  <a class="nav-btn" href="https://uri.amap.com/marker?position=114.121,22.541&name=东门老街" target="_blank" rel="noopener">一键导航</a>
-  <h4 class="sub">🛏️ 住宿（预算 300–400/晚）</h4>
-  <p class="hotel">全季酒店（深圳东门店）¥320–390 / 晚 · 如家精选（罗湖店）¥300–380。地铁 1 号线罗湖站旁，夜市近。</p>
-  <h4 class="sub">🍜 今日美食</h4>
-  <ul class="food-list"><li>沙井蚝（炭烧生蚝，人均 ¥60–90）</li><li>东门鲜榨甘蔗汁 + 粤式糖水</li><li>隆江猪脚饭（人均 ¥30–45）</li><li>粤式肠粉早餐（人均 ¥20）</li></ul>
-  <h4 class="sub">📍 景点攻略（点开看详情 / 拍照点 / 周边美食）</h4>
-  <div class="spots"><div class="spot"><button class="fold-btn" type="button"><span class="fold-name">东门老街</span><span class="fold-arrow">▾</span></button><div class="fold-body"><p class="spot-intro">深圳最老的商业街之一，骑楼老街与小吃摊并存，夜生活地标。</p><ul><li>📷 打卡：老街牌坊入口、骑楼霓虹、小吃巷夜景</li><li>🍜 周边：沙井蚝、糖水、猪脚饭、钵仔糕</li><li>🗺 动线：牌坊→步行街→小吃巷→地铁口返回</li><li>⏱ 停留：2–3 小时</li></ul></div></div><div class="spot"><button class="fold-btn" type="button"><span class="fold-name">华强北电子街</span><span class="fold-arrow">▾</span></button><div class="fold-body"><p class="spot-intro">中国电子第一街，数码与元器件批发集散，赛格广场是地标。</p><ul><li>📷 打卡：赛格广场外观、电子卖场灯光</li><li>🍜 周边：华强北商圈粤式快餐、茶饮</li><li>🗺 动线：地铁华强北站→赛格→步行街</li><li>⏱ 停留：1.5–2 小时</li></ul></div></div></div>
-  <div class="day-foot">⚠️ 本段路况/营业时间等易变信息请以官方实时为准，出发前核对。</div>
-</section>
-<section class="day" id="day2">
-  <div class="day-head">
-    <span class="day-tag">DAY 2</span>
-    <h3>深圳湾 × 世界之窗 × 锦绣中华</h3>
+
+  <!-- 交通双方案 -->
+  <div class="tabs">
+    <button class="tab-btn active" data-tab="tab-train">🚄 高铁/飞机方案</button>
+    <button class="tab-btn" data-tab="tab-drive">🚗 深圳当地自驾方案</button>
   </div>
-  <div class="meta-row">
-    <div class="meta-chip">🚌 市内地铁 / 打车</div>
-    <div class="meta-chip">深圳湾公园 → 世界之窗 → 锦绣中华（南山区）</div>
+  <div id="tab-train" class="tab-panel active">
+    <table class="mode-table">
+      <tr><th style="width:18%">路段</th><th style="width:26%">方式</th><th style="width:32%">时间/班次</th><th>备注</th></tr>
+      <tr><td><b>北京→深圳</b></td><td>高铁 G79/G81 等</td><td>约 8 小时（07:00-15:00 段）<span class="tag est">⚪ 估算</span></td><td>车次时刻以 12306 为准，建议提前购票</td></tr>
+      <tr><td><b>北京→深圳</b></td><td>飞机（大兴/首都→宝安）</td><td>约 3.5 小时飞行<span class="tag est">⚪ 估算</span></td><td>旺季机票浮动大，早订更优</td></tr>
+      <tr><td><b>深圳当地</b></td><td>地铁+打车</td><td>1-3 号线通达核心区</td><td>地铁刷乘车码即可，打车用高德/滴滴</td></tr>
+      <tr><td><b>深圳当地</b></td><td>租车自驾（可选）</td><td>机场/高铁站取车</td><td>东西海岸跨度大，自驾更自由</td></tr>
+    </table>
   </div>
-  <h4 class="sub">⏱ 每日行程（09:00 后出发）</h4>
-  <div class="timeline"><div class="tl-item"><div class="tl-time">09:00</div><div class="tl-body"><b>从酒店出发</b><p>地铁 1 号线转 9 号线前往深圳湾，约 30 分钟。</p></div></div><div class="tl-item"><div class="tl-time">09:30</div><div class="tl-body"><b>深圳湾公园 / 人才公园</b><p>滨海步道，远眺深圳湾大桥，对岸即香港；晨光通透适合出片。</p></div></div><div class="tl-item"><div class="tl-time">12:00</div><div class="tl-body"><b>午餐 · 椰子鸡</b><p>南山热门椰子鸡火锅（润园四季等），清甜汤底配竹笙，人均 ¥90–130。</p></div></div><div class="tl-item"><div class="tl-time">14:00</div><div class="tl-body"><b>世界之窗</b><p>浓缩世界地标：埃菲尔铁塔、凯旋门、金字塔等，可玩到傍晚。</p></div></div><div class="tl-item"><div class="tl-time">18:00</div><div class="tl-body"><b>锦绣中华民俗村</b><p>微缩中国 + 民族歌舞表演，夜景灯光与《东方霓裳》演出。</p></div></div><div class="tl-item"><div class="tl-time">20:30</div><div class="tl-body"><b>返回酒店</b><p>地铁回南山华侨城片区。</p></div></div></div>
-  <h4 class="sub">🗺 本段地图</h4>
-  <div class="map-frame"><iframe src="https://www.amap.com/search?query=世界之窗&city=深圳" loading="lazy" title="深圳湾 × 世界之窗 × 锦绣中华地图"></iframe></div>
-  <a class="nav-btn" href="https://uri.amap.com/marker?position=113.975,22.537&name=世界之窗" target="_blank" rel="noopener">一键导航</a>
-  <h4 class="sub">🛏️ 住宿（预算 300–400/晚）</h4>
-  <p class="hotel">亚朵酒店（华侨城店）¥350–420 / 全季（南山科技园店）¥320–400。紧邻世界之窗、欢乐海岸，续住免搬行李。</p>
-  <h4 class="sub">🍜 今日美食</h4>
-  <ul class="food-list"><li>椰子鸡火锅（人均 ¥90–130）</li><li>粤式早茶（点都德等，人均 ¥60–90）</li><li>沙井蚝（炭烧生蚝）</li><li>深圳湾畔海鲜排档</li></ul>
-  <h4 class="sub">📍 景点攻略（点开看详情 / 拍照点 / 周边美食）</h4>
-  <div class="spots"><div class="spot"><button class="fold-btn" type="button"><span class="fold-name">深圳湾公园</span><span class="fold-arrow">▾</span></button><div class="fold-body"><p class="spot-intro">深圳最长滨海休闲带，红树林湿地与深圳湾大桥同框，日出/黄昏绝美。</p><ul><li>📷 打卡：深圳湾大桥机位、人才公园草坪、红树林滩涂</li><li>🍜 周边：公园内咖啡、椰子鸡商圈</li><li>🗺 动线：深圳湾公园地铁口→滨海栈道→人才公园</li><li>⏱ 停留：2 小时</li></ul></div></div><div class="spot"><button class="fold-btn" type="button"><span class="fold-name">世界之窗</span><span class="fold-arrow">▾</span></button><div class="fold-body"><p class="spot-intro">浓缩世界著名地标主题公园，一园看遍五大洲，日场演出丰富。</p><ul><li>📷 打卡：埃菲尔铁塔、凯旋门、金字塔前广场</li><li>🍜 周边：华侨城欢乐海岸美食区</li><li>🗺 动线：主入口→欧洲区→美洲区→亚洲区→出口</li><li>⏱ 停留：3–4 小时</li></ul></div></div><div class="spot"><button class="fold-btn" type="button"><span class="fold-name">锦绣中华民俗村</span><span class="fold-arrow">▾</span></button><div class="fold-body"><p class="spot-intro">中国微缩景观 + 少数民族村寨与歌舞，夜晚《东方霓裳》演出是招牌。</p><ul><li>📷 打卡：故宫微缩、各民俗村寨、晚间灯光</li><li>🍜 周边：欢乐海岸夜宵</li><li>🗺 动线：锦绣中华门→微缩景观→民俗村寨→剧场</li><li>⏱ 停留：2–3 小时</li></ul></div></div></div>
-  <div class="day-foot">⚠️ 本段路况/营业时间等易变信息请以官方实时为准，出发前核对。</div>
-</section>
-<section class="day" id="day3">
-  <div class="day-head">
-    <span class="day-tag">DAY 3</span>
-    <h3>莲花山 × 博物馆 × 大梅沙</h3>
+  <div id="tab-drive" class="tab-panel">
+    <table class="mode-table">
+      <tr><th style="width:18%">路段</th><th style="width:26%">方式</th><th style="width:32%">时间</th><th>备注</th></tr>
+      <tr><td><b>市内核心→世界之窗</b></td><td>自驾/地铁</td><td>约 30 分钟<span class="tag real">🟢 实时核验</span></td><td>周末景区周边易堵，错峰前往</td></tr>
+      <tr><td><b>市区→深圳湾公园</b></td><td>自驾/公交</td><td>约 20 分钟</td><td>深圳湾公园地铁站直达</td></tr>
+      <tr><td><b>市区→大梅沙</b></td><td>自驾（东部华侨城方向）</td><td>约 40-50 分钟</td><td>节假日东部片区可能限行，需预约</td></tr>
+      <tr><td><b>市区→中英街</b></td><td>自驾/公交</td><td>约 40 分钟</td><td>需提前在「沙头角」办理通行证</td></tr>
+    </table>
   </div>
-  <div class="meta-row">
-    <div class="meta-chip">🚌 市内地铁 / 打车</div>
-    <div class="meta-chip">莲花山公园 → 深圳博物馆 → 大梅沙（福田→盐田）</div>
+
+  <!-- 海拔提示 -->
+  <div class="elev">
+    <div class="ic">⛰️</div>
+    <div>
+      <h4>海拔与高度提示</h4>
+      <p>深圳为沿海低海拔城市（中心城区海拔多在 10-50 米），无高反风险，无需海拔准备。真实高程数据不必接入——本线非高原线路。</p>
+    </div>
   </div>
-  <h4 class="sub">⏱ 每日行程（09:00 后出发）</h4>
-  <div class="timeline"><div class="tl-item"><div class="tl-time">09:00</div><div class="tl-body"><b>从酒店出发</b><p>地铁 2 号线前往莲花山，约 25 分钟。</p></div></div><div class="tl-item"><div class="tl-time">09:30</div><div class="tl-body"><b>莲花山公园</b><p>登顶邓小平铜像广场，俯瞰市民中心与福田天际线。</p></div></div><div class="tl-item"><div class="tl-time">11:30</div><div class="tl-body"><b>深圳博物馆（市民中心旁）</b><p>免费开放，看深圳改革开放与城市发展史。</p></div></div><div class="tl-item"><div class="tl-time">14:00</div><div class="tl-body"><b>大梅沙海滨公园</b><p>深圳最大免费海滨浴场，沙滩+栈道+山景，下午海边放松。</p></div></div><div class="tl-item"><div class="tl-time">18:30</div><div class="tl-body"><b>晚餐 · 海鲜</b><p>盐田/大梅沙海鲜排档，现捞现做。</p></div></div><div class="tl-item"><div class="tl-time">20:30</div><div class="tl-body"><b>返回酒店</b><p>地铁回市区。</p></div></div></div>
-  <h4 class="sub">🗺 本段地图</h4>
-  <div class="map-frame"><iframe src="https://www.amap.com/search?query=大梅沙海滨公园&city=深圳" loading="lazy" title="莲花山 × 博物馆 × 大梅沙地图"></iframe></div>
-  <a class="nav-btn" href="https://uri.amap.com/marker?position=114.301,22.596&name=大梅沙" target="_blank" rel="noopener">一键导航</a>
-  <h4 class="sub">🛏️ 住宿（预算 300–400/晚）</h4>
-  <p class="hotel">续住前晚酒店（免搬行李）；或盐田区维也纳 ¥300–380（近大梅沙）。</p>
-  <h4 class="sub">🍜 今日美食</h4>
-  <ul class="food-list"><li>大梅沙海鲜排档（人均 ¥100–160）</li><li>光明乳鸽（粤式名菜）</li><li>海鲜粥/肠粉早餐</li></ul>
-  <h4 class="sub">📍 景点攻略（点开看详情 / 拍照点 / 周边美食）</h4>
-  <div class="spots"><div class="spot"><button class="fold-btn" type="button"><span class="fold-name">莲花山公园</span><span class="fold-arrow">▾</span></button><div class="fold-body"><p class="spot-intro">深圳中心绿肺，山顶邓小平铜像与市民中心中轴线经典机位。</p><ul><li>📷 打卡：邓小平铜像广场、俯瞰市民中心&京基100、草坪放风筝</li><li>🍜 周边：市民中心商圈、深业上城</li><li>🗺 动线：北门登山→山顶广场→南门出→博物馆</li><li>⏱ 停留：2 小时</li></ul></div></div><div class="spot"><button class="fold-btn" type="button"><span class="fold-name">深圳博物馆</span><span class="fold-arrow">▾</span></button><div class="fold-body"><p class="spot-intro">看深圳从小渔村到超大城市的历史，改革开放专题展馆。</p><ul><li>📷 打卡：展厅城市沙盘、老深圳照片墙</li><li>🍜 周边：市民中心餐饮</li><li>🗺 动线：古代深圳→近代深圳→改革开放展</li><li>⏱ 停留：1.5 小时</li></ul></div></div><div class="spot"><button class="fold-btn" type="button"><span class="fold-name">大梅沙海滨公园</span><span class="fold-arrow">▾</span></button><div class="fold-body"><p class="spot-intro">免费海滨浴场，沙滩细腻、背靠梧桐山，适合玩水与拍照。</p><ul><li>📷 打卡：沙滩灯塔、海滨栈道、落日海面</li><li>🍜 周边：盐田海鲜街、乳鸽</li><li>🗺 动线：沙滩→栈道→海边浴场→海鲜街晚餐</li><li>⏱ 停留：3–4 小时</li></ul></div></div></div>
-  <div class="day-foot">⚠️ 本段路况/营业时间等易变信息请以官方实时为准，出发前核对。</div>
-</section>
-<section class="day" id="day4">
-  <div class="day-head">
-    <span class="day-tag">DAY 4</span>
-    <h3>中英街 / 南头古城 → 返程</h3>
+
+  <!-- 装备清单 -->
+  <div class="appx-card" style="margin-top:16px">
+    <h4>🎒 装备与准备清单</h4>
+    <ul>
+      <li><b>证件：</b>身份证（乘高铁/飞机必带）、若去中英街需提前线上预约并凭身份证现场办通行证</li>
+      <li><b>交通：</b>下载「12306」查高铁、装「高德地图」自驾导航；深圳地铁用乘车码即可</li>
+      <li><b>衣物：</b>深圳冬暖夏热，冬季 15-22℃ 薄外套即可，夏季防晒+泳具（大梅沙可下水）</li>
+      <li><b>预约：</b>世界之窗、锦绣中华、东部华侨城等主题乐园建议线上提前订票（节假日需抢）</li>
+      <li><b>其他：</b>雨伞（夏季午后多阵雨）、驱蚊液（海边/公园）、充电宝、防晒霜</li>
+    </ul>
   </div>
-  <div class="meta-row">
-    <div class="meta-chip">🚄 高铁 / 航班 返程</div>
-    <div class="meta-chip">中英街（沙头角）→ 深圳北站/机场 → 北京</div>
-  </div>
-  <h4 class="sub">⏱ 每日行程（09:00 后出发）</h4>
-  <div class="timeline"><div class="tl-item"><div class="tl-time">09:00</div><div class="tl-body"><b>从酒店出发</b><p>前往沙头角中英街或南山南头古城。</p></div></div><div class="tl-item"><div class="tl-time">09:30</div><div class="tl-body"><b>中英街（需提前预约）</b><p>深港交界免税街，一街两制，港货免税购物（需办通行证预约）。</p></div></div><div class="tl-item"><div class="tl-time">12:00</div><div class="tl-body"><b>午餐 · 港式茶餐厅 / 古城小吃</b><p>中英街港式茶餐或南头古城文创小吃。</p></div></div><div class="tl-item"><div class="tl-time">14:00</div><div class="tl-body"><b>前往深圳北站 / 机场</b><p>高铁或航班返京，结束行程。</p></div></div></div>
-  <h4 class="sub">🗺 本段地图</h4>
-  <div class="map-frame"><iframe src="https://www.amap.com/search?query=中英街&city=深圳" loading="lazy" title="中英街 / 南头古城 → 返程地图"></iframe></div>
-  <a class="nav-btn" href="https://uri.amap.com/marker?position=114.221,22.531&name=中英街" target="_blank" rel="noopener">一键导航</a>
-  <h4 class="sub">🛏️ 住宿（预算 300–400/晚）</h4>
-  <p class="hotel">无（当日返程）。</p>
-  <h4 class="sub">🍜 今日美食</h4>
-  <ul class="food-list"><li>港式茶餐厅（丝袜奶茶+菠萝油，人均 ¥60）</li><li>南头古城文创小吃</li></ul>
-  <h4 class="sub">📍 景点攻略（点开看详情 / 拍照点 / 周边美食）</h4>
-  <div class="spots"><div class="spot"><button class="fold-btn" type="button"><span class="fold-name">中英街</span><span class="fold-arrow">▾</span></button><div class="fold-body"><p class="spot-intro">深港分界线的百年老街，一侧深圳一侧香港，凭通行证预约进入，免税港货购物。</p><ul><li>📷 打卡：中英街界碑、深港分界线、警示钟</li><li>🍜 周边：港式茶餐厅</li><li>🗺 动线：办证大厅→界碑→免税店→返程</li><li>⏱ 停留：2–3 小时（需预约）</li></ul></div></div><div class="spot"><button class="fold-btn" type="button"><span class="fold-name">南头古城</span><span class="fold-arrow">▾</span></button><div class="fold-body"><p class="spot-intro">深圳的历史之根，明代古城墙+岭南民居，现为文创街区。</p><ul><li>📷 打卡：古城门、牌坊、文创小店</li><li>🍜 周边：古城内咖啡与小吃</li><li>🗺 动线：古城门→主街→文创区</li><li>⏱ 停留：2 小时</li></ul></div></div></div>
-  <div class="day-foot">⚠️ 本段路况/营业时间等易变信息请以官方实时为准，出发前核对。</div>
 </section>
 
-  <section id="appendix" class="appendix">
-    <h2 class="sect-head">📋 附录 · 兜底与溯源</h2>
-    <h4>🚨 应急信息</h4>
-    <ul>
-      <li>全国报警 110 / 急救 120 / 交通事故 122</li>
-      <li>深圳市急救中心：0755-120（深圳北站、机场均设医务室）</li>
-      <li>平台客服与高铁/航班退改签以官方 App 为准</li>
-    </ul>
-    <h4>🔀 全局兜底 Plan B</h4>
-    <ul>
-      <li>高铁满票/停运：改乘航班（大兴⇄深圳，约 3.5h）或顺延一天</li>
-      <li>极端天气（台风/暴雨）：海边景点改室内（深圳博物馆、市民中心、商场）</li>
-      <li>中英街预约不上：替换为南头古城或欢乐海岸（均免费）</li>
-    </ul>
-    <h4>📅 可选延伸（Day 5）</h4>
-    <ul>
-      <li>东部华侨城（茶溪谷/大侠谷，门票约 ¥200）</li>
-      <li>欢乐海岸 + 华侨城创意园（免费，滨海休闲）</li>
-    </ul>
-    <h4>💰 花费预估（数据获取时间：2026-11-15）</h4>
-    <ul>
-      <li>往返大交通：高铁二等座约 ¥1180–1390/程，或航班约 ¥700–1500/程</li>
-      <li>住宿（300–400/晚 ×3）：约 ¥900–1200</li>
-      <li>门票：世界之窗约 ¥220、锦绣中华约 ¥200、大梅沙免费、中英街免费</li>
-      <li>餐饮（4 天）：约 ¥700–1000/人</li>
-    </ul>
-    <p class="src">数据来源说明：高铁车次/票价、门票价格、景区营业时间为易变信息，页面已标注「需出行前确认」；请以 12306、深圳地铁、景区官方公众号及高德地图实时数据为准。<span class="badge real">🟢 实时</span><span class="badge est">⚪ AI 估算</span></p>
-  </section>
-</div>
+<!-- ===== 每日行程 ===== -->
+<section class="section-pad" id="days">
 
-<footer>超级小爱 AI 生成 · 北京 → 深圳 4天3晚路书 · 2026-11-15</footer>
+  <!-- DAY 1 -->
+  <div class="day-card" id="day1">
+    <div class="day-head">
+      <div class="day-num"><div class="d">DAY</div><div class="n">1</div></div>
+      <div class="day-title">
+        <h3>北京 → 深圳 · 抵达 & 世界之窗夜景</h3>
+        <div class="sub">
+          <span class="badge-t badge-train">🚄 高铁/飞机</span>
+          <span>本段为公共交通</span>
+          <span class="tag real">🟢 时刻实时核验</span>
+        </div>
+      </div>
+    </div>
 
+    <div class="info-grid">
+      <div class="info-item"><div class="iic">🚉</div><div><div class="ilb">交通方式</div><div class="ival">高铁 G79/G81 或飞机 <small>约 3.5-8 小时</small></div></div></div>
+      <div class="info-item"><div class="iic">⏱️</div><div><div class="ilb">耗时</div><div class="ival">全程约 6-10 小时（含候机候车）</div></div></div>
+      <div class="info-item"><div class="iic">📍</div><div><div class="ilb">抵达</div><div class="ival">深圳北站 / 宝安机场</div></div></div>
+      <div class="info-item"><div class="iic">🕘</div><div><div class="ilb">出发时间</div><div class="ival">9:00 后出发（上午高铁/航班）</div></div></div>
+    </div>
+
+    <div class="map-card">
+      <div class="mcap"><div class="tt">🗺️ 本段示意</div><div class="note">示意图 · 非真实轨迹</div></div>
+      <div id="dayMap1" class="map" style="height:260px"></div>
+    </div>
+
+    <p style="font-size:13.5px;color:var(--t2);margin-top:12px"><b style="color:var(--t1)">今日动线：</b>上午高铁/飞机出发 → 午后抵达深圳 → 酒店入住休整 → 傍晚前往世界之窗 → 夜景游园 + 阿尔卑斯冰雪世界 → 返回酒店。</p>
+
+    <div class="info-grid">
+      <div class="info-item"><div class="iic">🛣️</div><div><div class="ilb">路况提示</div><div class="ival">深圳市区晚高峰约 17:30-19:30，世界之窗方向留意拥堵<span class="tag real">🟢 实时</span></div></div></div>
+      <div class="info-item"><div class="iic">⛽</div><div><div class="ilb">补给点</div><div class="ival">地铁 1 号线世界之窗站直达；园区内餐饮齐全</div></div></div>
+      <div class="info-item"><div class="iic">⚠️</div><div><div class="ilb">坑点提醒</div><div class="ival">世界之窗夜场门票与日场不同，入园时间有限制，先确认夜场开放时间</div></div></div>
+      <div class="info-item"><div class="iic">🔀</div><div><div class="ilb">本段 Plan B</div><div class="ival">航班延误/高铁晚点可改乘下一班；若当天太晚，世界之窗可改到 D2 上午</div></div></div>
+    </div>
+
+    <!-- 世界之窗 攻略 -->
+    <div class="spot-block">
+      <button class="spot-head">
+        <span class="sh"><span class="si">🌍</span><span class="st">世界之窗（经典主题乐园）<small>Day1 傍晚 · 夜场游园</small></span></span>
+        <svg class="arw" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+      </button>
+      <div class="spot-body">
+        <div class="seg"><h5>🔍 深度看点</h5><ul>
+          <li>浓缩世界 130 多处微缩景观，一天逛完「环球」——埃菲尔铁塔、凯旋门、金字塔、悉尼歌剧院等按比例缩小</li>
+          <li>夜场灯光秀是重头戏，多国建筑亮灯后别有一番味道，还有烟花/灯光表演（视季节）</li>
+          <li>阿尔卑斯冰雪世界（室内滑雪）可顺路体验，夏天去尤其凉快</li>
+          <li>园内环球风情表演区有民族/歌舞快闪，凑巧能看到现场演出</li>
+        </ul></div>
+        <div class="seg"><h5>📷 拍照打卡点</h5><ul>
+          <li>园区正门入口广场 + 大雕塑是标准合影机位</li>
+          <li>埃菲尔铁塔前广场白天背光需测光，傍晚顺光最好出片</li>
+          <li>晚上园区内湖面灯光倒影是出片亮点</li>
+        </ul></div>
+        <div class="seg"><h5>🍜 周边美食</h5>
+          <div class="meal-chips"><span class="chip">园区内主题餐厅</span><span class="chip">地铁站周边快餐</span><span class="chip">南山欢乐海岸商圈</span></div>
+        </div>
+        <div class="seg"><h5>🗺️ 游览动线建议</h5><ul>
+          <li>16:00-17:00 到达入园 → 先逛白天的欧陆/美洲区 → 傍晚灯光秀 → 冰雪世界 → 21:00 前离园</li>
+        </ul></div>
+      </div>
+    </div>
+
+    <div class="day-imgs">
+      <div class="img-card">
+        <img src="https://pixabay.com/get/gf6c6edf7338b13bb8bacc123cd66a380522eb8524cda8b216b493ee96fa14fcd73ab37400f5f49ec3bab9208e0e233bf3f8c362441e69c26df76091223f1cd78_1280.png" alt="世界之窗埃菲尔铁塔">
+        <div class="cap">世界之窗 · 埃菲尔铁塔微缩景观<small><a href="https://unsplash.com/photos/eiffel-tower-tFU3OYcZJFk" target="_blank">来源</a></small></div>
+      </div>
+    </div>
+
+    <div class="stay-food">
+      <div class="sf-card"><h5>🏨 住宿建议</h5><div class="sfi"><b>南山区·欢乐海岸附近</b>（约 300-400 元/晚）<br><small>距世界之窗 1 站地铁，近海岸城商圈，夜宵便利；备选：福田区（更安静，地铁通勤 20 分钟）</small></div></div>
+      <div class="sf-card"><h5>🍜 今日美食</h5><div class="sfi"><b>粤式茶点</b>（人均 60-90 元）<br><small>抵达后先来一盅两件——虾饺、凤爪、肠粉，推荐点都德/陶陶居类连锁或本地老字号</small></div></div>
+    </div>
+
+    <a class="nav-btn" href="https://uri.amap.com/marker?position=113.9895,22.5391&name=世界之窗" target="_blank"><span class="ic">🧭</span>一键导航</a>
+  </div>
+
+  <!-- DAY 2 -->
+  <div class="day-card" id="day2">
+    <div class="day-head">
+      <div class="day-num"><div class="d">DAY</div><div class="n">2</div></div>
+      <div class="day-title">
+        <h3>深圳湾公园 · 红树林 & 华侨城创意园</h3>
+        <div class="sub">
+          <span class="badge-t badge-drive">🚗 当地自驾/地铁</span>
+          <span>本段为深圳当地</span>
+          <span class="tag real">🟢 实时核验</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="info-grid">
+      <div class="info-item"><div class="iic">🚗</div><div><div class="ilb">交通方式</div><div class="ival">自驾 / 地铁 9 号线</div></div></div>
+      <div class="info-item"><div class="iic">⏱️</div><div><div class="ilb">耗时</div><div class="ival">全天市区，自驾约 40km</div></div></div>
+      <div class="info-item"><div class="iic">📍</div><div><div class="ilb">起点→终点</div><div class="ival">酒店 → 深圳湾公园 → 红树林 → 华侨城</div></div></div>
+      <div class="info-item"><div class="iic">🕘</div><div><div class="ilb">出发时间</div><div class="ival">9:00 后出发</div></div></div>
+    </div>
+
+    <div class="map-card">
+      <div class="mcap"><div class="tt">🗺️ 本段示意</div><div class="note">示意图 · 非真实轨迹</div></div>
+      <div id="dayMap2" class="map" style="height:260px"></div>
+    </div>
+
+    <p style="font-size:13.5px;color:var(--t2);margin-top:12px"><b style="color:var(--t1)">今日动线：</b>9:00 出发 → 深圳湾公园滨海栈道看海、远眺香港 → 红树林观鸟 → 华侨城创意园（OCT-LOFT）闲逛 → 傍晚回市区美食。</p>
+
+    <div class="info-grid">
+      <div class="info-item"><div class="iic">🛣️</div><div><div class="ilb">路况提示</div><div class="ival">深圳湾沿岸周末人多，滨海大道部分时段限行<span class="tag real">🟢 实时</span></div></div></div>
+      <div class="info-item"><div class="iic">⛽</div><div><div class="ilb">补给点</div><div class="ival">深圳湾公园站/红树林站有便利店与饮水；园区内多处洗手间</div></div></div>
+      <div class="info-item"><div class="iic">⚠️</div><div><div class="ilb">坑点提醒</div><div class="ival">红树林保护区观鸟旺季（冬季）人多，注意不要投喂/惊扰候鸟</div></div></div>
+      <div class="info-item"><div class="iic">🔀</div><div><div class="ilb">本段 Plan B</div><div class="ival">雨天可改去室内的「海上世界文化艺术中心」或「华强北商圈」逛街</div></div></div>
+    </div>
+
+    <div class="spot-block">
+      <button class="spot-head">
+        <span class="sh"><span class="si">🌊</span><span class="st">深圳湾公园 · 红树林（滨海观海观鸟）<small>Day2 上午 · 必看</small></span></span>
+        <svg class="arw" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+      </button>
+      <div class="spot-body">
+        <div class="seg"><h5>🔍 深度看点</h5><ul>
+          <li>深圳湾滨海栈道全长约 15 公里，视野开阔，对岸就是香港元朗，隔海相望十分震撼</li>
+          <li>红树林保护区是全国唯一位于城市中心的红树林，冬季上万只候鸟在此越冬（黑脸琵鹭、白鹭等）</li>
+          <li>公园免费开放，是深圳人日常散步跑步的后花园，烟火气十足</li>
+          <li>傍晚在「深圳湾公园地铁站」附近看城市天际线+海面日落，是经典机位</li>
+        </ul></div>
+        <div class="seg"><h5>📷 拍照打卡点</h5><ul>
+          <li>深圳湾公园地铁站 C 出口正对海面，黄昏顺光最美</li>
+          <li>红树林观鸟平台架望远镜，拍鸟带长焦</li>
+          <li>滨海栈道沿途每隔一段有亲水平台，低机位拍人像</li>
+        </ul></div>
+        <div class="seg"><h5>🍜 周边美食</h5>
+          <div class="meal-chips"><span class="chip">深圳湾万象城商圈</span><span class="chip">海岸城粤菜</span><span class="chip">华强北夜市</span></div>
+        </div>
+        <div class="seg"><h5>🗺️ 游览动线建议</h5><ul>
+          <li>9:00 出发 → 深圳湾公园徒步 1-1.5h → 红树林观鸟 1h → 中午华侨城商圈午餐 → 下午 OCT-LOFT 创意园 → 傍晚回市区</li>
+        </ul></div>
+      </div>
+    </div>
+
+    <div class="day-imgs">
+      <div class="img-card">
+        <img src="https://images.unsplash.com/photo-1609515602287-8470b8d9ac11?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1000" alt="深圳湾天际线">
+        <div class="cap">深圳湾 · 城市天际线<small><a href="https://unsplash.com/photos/aerial-view-of-city-buildings-during-daytime-LomvYA_RUoY" target="_blank">来源</a></small></div>
+      </div>
+    </div>
+
+    <div class="stay-food">
+      <div class="sf-card"><h5>🏨 住宿建议</h5><div class="sfi"><b>南山区·世界之窗/欢乐海岸</b>（约 300-400 元/晚）<br><small>深圳湾一日基本在南山区，酒店无需更换</small></div></div>
+      <div class="sf-card"><h5>🍜 今日美食</h5><div class="sfi"><b>潮汕牛肉火锅</b>（人均 80-120 元）<br><small>深圳最地道的街边名物，鲜切牛肉配沙茶酱，华侨城附近多家老字号</small></div></div>
+    </div>
+
+    <a class="nav-btn" href="https://uri.amap.com/marker?position=113.9843,22.5081&name=深圳湾公园" target="_blank"><span class="ic">🧭</span>一键导航</a>
+  </div>
+
+  <!-- DAY 3 -->
+  <div class="day-card" id="day3">
+    <div class="day-head">
+      <div class="day-num"><div class="d">DAY</div><div class="n">3</div></div>
+      <div class="day-title">
+        <h3>大梅沙 · 东部华侨城 & 中英街</h3>
+        <div class="sub">
+          <span class="badge-t badge-drive">🚗 当地自驾</span>
+          <span>本段为深圳东部海岸</span>
+          <span class="tag real">🟢 实时核验</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="info-grid">
+      <div class="info-item"><div class="iic">🚗</div><div><div class="ilb">交通方式</div><div class="ival">自驾（东部华侨城方向）</div></div></div>
+      <div class="info-item"><div class="iic">⏱️</div><div><div class="ilb">耗时</div><div class="ival">全天约 60km 自驾</div></div></div>
+      <div class="info-item"><div class="iic">📍</div><div><div class="ilb">起点→终点</div><div class="ival">市区 → 大梅沙海滨公园 → 东部华侨城 → 中英街</div></div></div>
+      <div class="info-item"><div class="iic">🕘</div><div><div class="ilb">出发时间</div><div class="ival">9:00 后出发（东部片区早出发避堵）</div></div></div>
+    </div>
+
+    <div class="map-card">
+      <div class="mcap"><div class="tt">🗺️ 本段示意</div><div class="note">示意图 · 非真实轨迹</div></div>
+      <div id="dayMap3" class="map" style="height:260px"></div>
+    </div>
+
+    <p style="font-size:13.5px;color:var(--t2);margin-top:12px"><b style="color:var(--t1)">今日动线：</b>9:00 出发 → 大梅沙海滨公园沙滩踏浪 → 东部华侨城（茶溪谷/大侠谷二选一）→ 下午驱车前往中英街 → 傍晚返回市区。</p>
+
+    <div class="info-grid">
+      <div class="info-item"><div class="iic">🛣️</div><div><div class="ilb">路况提示</div><div class="ival">东部华侨城方向节假日需预约通行证，且易堵车；平日正常</div></div></div>
+      <div class="info-item"><div class="iic">⛽</div><div><div class="ilb">补给点</div><div class="ival">大梅沙有停车场与餐饮；东部华侨城园区内有餐厅</div></div></div>
+      <div class="info-item"><div class="iic">⚠️</div><div><div class="ilb">坑点提醒</div><div class="ival">中英街需提前线上预约「沙头角通行证」并凭身份证现场取；大梅沙旺季需预约入园</div></div></div>
+      <div class="info-item"><div class="iic">🔀</div><div><div class="ilb">本段 Plan B</div><div class="ival">若时间紧/天热，可舍弃东部华侨城改「海滨栈道骑行」，把更多时间留给中英街</div></div></div>
+    </div>
+
+    <div class="spot-block">
+      <button class="spot-head">
+        <span class="sh"><span class="si">🏖️</span><span class="st">大梅沙海滨公园（深圳最大免费海滩）<small>Day3 上午 · 踏浪玩沙</small></span></span>
+        <svg class="arw" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+      </button>
+      <div class="spot-body">
+        <div class="seg"><h5>🔍 深度看点</h5><ul>
+          <li>深圳最大、最著名的免费海滩，沙滩宽阔、海水清澈，夏季可下水游泳（有安全员巡逻）</li>
+          <li>海滨栈道 + 愿望塔是地标，傍晚在沙滩看日落非常惬意</li>
+          <li>旺季（夏季/节假日）需提前在官方小程序预约入园，避免白跑</li>
+          <li>旁边就是东部华侨城，一条线路连玩两个点很方便</li>
+        </ul></div>
+        <div class="seg"><h5>📷 拍照打卡点</h5><ul>
+          <li>沙滩正对海湾，低机位拍浪花与人像</li>
+          <li>海滨栈道延伸入海处是经典取景位</li>
+          <li>日出/日落时分顺光，海面反光出片</li>
+        </ul></div>
+        <div class="seg"><h5>🍜 周边美食</h5>
+          <div class="meal-chips"><span class="chip">大梅沙海滨路海鲜排档</span><span class="chip">东部华侨城园区餐</span><span class="chip">盐田海鲜街</span></div>
+        </div>
+        <div class="seg"><h5>🗺️ 游览动线建议</h5><ul>
+          <li>9:30 到沙滩玩水 1.5h → 11:30 东部华侨城午餐 → 下午园区游玩 → 16:00 前往中英街</li>
+        </ul></div>
+      </div>
+    </div>
+
+    <div class="spot-block">
+      <button class="spot-head">
+        <span class="sh"><span class="si">🏛️</span><span class="st">中英街（一街两制 · 百年边界）<small>Day3 下午 · 必看</small></span></span>
+        <svg class="arw" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+      </button>
+      <div class="spot-body">
+        <div class="seg"><h5>🔍 深度看点</h5><ul>
+          <li>长 250 米、宽 4 米的百年小街，一边深圳一边香港（新界沙头角），是「一国两制」最直观的缩影</li>
+          <li>界碑、百年古井、民俗博物馆记录着这条街的历史变迁</li>
+          <li>免税商店可买进口商品（每人有额度限制），但以观光为主，购物需理智</li>
+          <li>必须持有效身份证件并提前线上预约通行证才能进入，办理点在中英街门口</li>
+        </ul></div>
+        <div class="seg"><h5>📷 拍照打卡点</h5><ul>
+          <li>「中英街」牌坊 + 界碑是最经典合影位</li>
+          <li>民俗博物馆建筑充满民国风情，适合拍人文</li>
+          <li>街尾可远眺香港新界，隔栏取景</li>
+        </ul></div>
+        <div class="seg"><h5>🍜 周边美食</h5>
+          <div class="meal-chips"><span class="chip">盐田海鲜街（近中英街）</span><span class="chip">沙头角本地小吃</span></div>
+        </div>
+        <div class="seg"><h5>🗺️ 游览动线建议</h5><ul>
+          <li>提前在「i深圳/沙头角预约」办好通行证 → 16:00 到 → 游览 1-1.5h → 17:30 盐田海鲜街晚餐</li>
+        </ul></div>
+      </div>
+    </div>
+
+    <div class="day-imgs">
+      <div class="img-card">
+        <img src="https://pixabay.com/get/g183d325798bf62e04d590e4d339b804046ed2be3432efe6ac0b9ce0d0e534ee73809955be93643fe7c0ec0a7a144b82d4c8a9ce46e793dd56a39f7bd5d7abef7_1280.jpg" alt="大梅沙海滩">
+        <div class="cap">大梅沙 · 海滨沙滩<small><a href="https://pixabay.com/photos/shenzhen-china-sea-sunrise-sky-3515992/" target="_blank">来源</a></small></div>
+      </div>
+    </div>
+
+    <div class="stay-food">
+      <div class="sf-card"><h5>🏨 住宿建议</h5><div class="sfi"><b>南山区·原酒店或盐田区</b>（约 300-400 元/晚）<br><small>若想省时间可住盐田区，次日返程更近；回南山也可</small></div></div>
+      <div class="sf-card"><h5>🍜 今日美食</h5><div class="sfi"><b>盐田海鲜</b>（人均 80-150 元）<br><small>深圳靠海，盐田海鲜街现捞现做，皮皮虾、生蚝、炒蟹必点</small></div></div>
+    </div>
+
+    <a class="nav-btn" href="https://uri.amap.com/marker?position=114.2433,22.5982&name=大梅沙海滨公园" target="_blank"><span class="ic">🧭</span>一键导航</a>
+  </div>
+
+  <!-- DAY 4 -->
+  <div class="day-card" id="day4">
+    <div class="day-head">
+      <div class="day-num"><div class="d">DAY</div><div class="n">4</div></div>
+      <div class="day-title">
+        <h3>锦绣中华 · 民俗文化村 & 市民中心</h3>
+        <div class="sub">
+          <span class="badge-t badge-drive">🚗 当地自驾/地铁</span>
+          <span>本段为深圳市区</span>
+          <span class="tag real">🟢 实时核验</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="info-grid">
+      <div class="info-item"><div class="iic">🚗</div><div><div class="ilb">交通方式</div><div class="ival">自驾 / 地铁 1 号线</div></div></div>
+      <div class="info-item"><div class="iic">⏱️</div><div><div class="ilb">耗时</div><div class="ival">全天市区约 30km</div></div></div>
+      <div class="info-item"><div class="iic">📍</div><div><div class="ilb">起点→终点</div><div class="ival">酒店 → 锦绣中华 → 民俗文化村 → 市民中心/莲花山</div></div></div>
+      <div class="info-item"><div class="iic">🕘</div><div><div class="ilb">出发时间</div><div class="ival">9:00 后出发</div></div></div>
+    </div>
+
+    <div class="map-card">
+      <div class="mcap"><div class="tt">🗺️ 本段示意</div><div class="note">示意图 · 非真实轨迹</div></div>
+      <div id="dayMap4" class="map" style="height:260px"></div>
+    </div>
+
+    <p style="font-size:13.5px;color:var(--t2);margin-top:12px"><b style="color:var(--t1)">今日动线：</b>9:00 出发 → 锦绣中华（微缩中国）→ 民俗文化村（少数民族风情）→ 下午市民中心/莲花山公园 → 傍晚深圳夜景（平安金融中心观光层可选）→ 返回。</p>
+
+    <div class="info-grid">
+      <div class="info-item"><div class="iic">🛣️</div><div><div class="ilb">路况提示</div><div class="ival">市区道路顺畅，莲花山/市民中心周末停车紧张<span class="tag real">🟢 实时</span></div></div></div>
+      <div class="info-item"><div class="iic">⛽</div><div><div class="ilb">补给点</div><div class="ival">锦绣中华园内餐饮、市民中心商圈齐全</div></div></div>
+      <div class="info-item"><div class="iic">⚠️</div><div><div class="ilb">坑点提醒</div><div class="ival">锦绣中华+民俗文化村联票价格高，分开买可能更划算；两个园区紧邻，一天可逛完</div></div></div>
+      <div class="info-item"><div class="iic">🔀</div><div><div class="ilb">本段 Plan B</div><div class="ival">若不想看微缩景观，可改去「深圳博物馆」+「华强北」购物一日</div></div></div>
+    </div>
+
+    <div class="spot-block">
+      <button class="spot-head">
+        <span class="sh"><span class="si">🏯</span><span class="st">锦绣中华 · 民俗文化村（一园看尽中国）<small>Day4 · 必看</small></span></span>
+        <svg class="arw" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+      </button>
+      <div class="spot-body">
+        <div class="seg"><h5>🔍 深度看点</h5><ul>
+          <li>锦绣中华浓缩中国 82 处著名景点的微缩景观——长城、故宫、布达拉宫、兵马俑一站集齐</li>
+          <li>相邻的民俗文化村有 24 个少数民族村寨实景 + 歌舞表演（孔雀舞、长鼓舞等），互动感强</li>
+          <li>夜晚民俗村常有篝火晚会/灯光秀（视季节），气氛热闹</li>
+          <li>园区很大，建议穿舒适鞋，可坐电瓶车代步</li>
+        </ul></div>
+        <div class="seg"><h5>📷 拍照打卡点</h5><ul>
+          <li>微缩「长城」蜿蜒处俯拍全景最震撼</li>
+          <li>民俗村民族服饰可租来合影</li>
+          <li>傍晚园区灯光亮起，徽派/闽南建筑立面很出片</li>
+        </ul></div>
+        <div class="seg"><h5>🍜 周边美食</h5>
+          <div class="meal-chips"><span class="chip">园内民族特色餐</span><span class="chip">华侨城商圈</span><span class="chip">海岸城</span></div>
+        </div>
+        <div class="seg"><h5>🗺️ 游览动线建议</h5><ul>
+          <li>9:30 入园 → 锦绣中华微缩区 2h → 民俗文化村 2h → 看一场民族歌舞表演 → 16:00 离园去市民中心</li>
+        </ul></div>
+      </div>
+    </div>
+
+    <div class="day-imgs">
+      <div class="img-card">
+        <img src="https://pixabay.com/get/g50f2f2ba6861504c9a618273bb489f46e0190de0de4a78f01366884696157358d828f95792b0c786f56a12344b6af556dff833e584d26f74333b66ff058cf9ef_1280.jpg" alt="深圳湾夜景">
+        <div class="cap">深圳 · 城市夜景<small><a href="https://pixabay.com/photos/skyline-city-view-beach-7430595/" target="_blank">来源</a></small></div>
+      </div>
+    </div>
+
+    <div class="stay-food">
+      <div class="sf-card"><h5>🏨 住宿建议</h5><div class="sfi"><b>南山区·原酒店</b>（约 300-400 元/晚）<br><small>全程住在南山，地铁通勤方便，返程集中在一处</small></div></div>
+      <div class="sf-card"><h5>🍜 今日美食</h5><div class="sfi"><b>粤式烧腊 + 砂锅粥</b>（人均 50-80 元）<br><small>深夜一碗热腾腾的潮汕砂锅粥配烧鹅烧鸭，是深圳宵夜的灵魂</small></div></div>
+    </div>
+
+    <a class="nav-btn" href="https://uri.amap.com/marker?position=113.9911,22.5391&name=锦绣中华" target="_blank"><span class="ic">🧭</span>一键导航</a>
+  </div>
+
+  <!-- DAY 5 -->
+  <div class="day-card" id="day5">
+    <div class="day-head">
+      <div class="day-num"><div class="d">DAY</div><div class="n">5</div></div>
+      <div class="day-title">
+        <h3>自由安排 · 平安金融中心 & 返程</h3>
+        <div class="sub">
+          <span class="badge-t badge-train">🚄 高铁/飞机返程</span>
+          <span>本段为返程（可选第 5 天）</span>
+          <span class="tag real">🟢 时刻实时核验</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="info-grid">
+      <div class="info-item"><div class="iic">🚉</div><div><div class="ilb">交通方式</div><div class="ival">高铁 G80/G82 或飞机返京</div></div></div>
+      <div class="info-item"><div class="iic">⏱️</div><div><div class="ilb">耗时</div><div class="ival">约 3.5-8 小时</div></div></div>
+      <div class="info-item"><div class="iic">📍</div><div><div class="ilb">起点→终点</div><div class="ival">酒店 → 平安金融中心(可选) → 深圳北站/宝安机场 → 北京</div></div></div>
+      <div class="info-item"><div class="iic">🕘</div><div><div class="ilb">出发时间</div><div class="ival">9:00 后出发，返程车次留足候车时间</div></div></div>
+    </div>
+
+    <div class="map-card">
+      <div class="mcap"><div class="tt">🗺️ 本段示意</div><div class="note">示意图 · 非真实轨迹</div></div>
+      <div id="dayMap5" class="map" style="height:260px"></div>
+    </div>
+
+    <p style="font-size:13.5px;color:var(--t2);margin-top:12px"><b style="color:var(--t1)">今日动线：</b>若返程车次较晚，上午可去平安金融中心云际观光层俯瞰深圳全城 → 买伴手礼 → 午餐 → 前往高铁站/机场返京。<b>若只有 4 天，本日可并入 D4 下午（平安金融中心放 D4 傍晚）。</b></p>
+
+    <div class="info-grid">
+      <div class="info-item"><div class="iic">🛣️</div><div><div class="ilb">路况提示</div><div class="ival">深圳北站/机场返程高峰约 16:00-18:00，自驾预留时间<span class="tag real">🟢 实时</span></div></div></div>
+      <div class="info-item"><div class="iic">⛽</div><div><div class="ilb">补给点</div><div class="ival">高铁站/机场内餐饮齐全；可顺路采购深圳手信</div></div></div>
+      <div class="info-item"><div class="iic">⚠️</div><div><div class="ilb">坑点提醒</div><div class="ival">平安金融中心观光层门票约 150-200 元，可提前线上购票；天气不佳时观景效果打折</div></div></div>
+      <div class="info-item"><div class="iic">🔀</div><div><div class="ilb">本段 Plan B</div><div class="ival">返程航班延误可改签高铁；时间充裕可加逛「华强北电子市场」或「东门老街」</div></div></div>
+    </div>
+
+    <div class="spot-block">
+      <button class="spot-head">
+        <span class="sh"><span class="si">🏙️</span><span class="st">平安金融中心·云际观光层（深圳最高点）<small>Day5 上午（可选）</small></span></span>
+        <svg class="arw" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+      </button>
+      <div class="spot-body">
+        <div class="seg"><h5>🔍 深度看点</h5><ul>
+          <li>深圳第一高楼（592 米），116 层云际观光层是华南最高观光点，可俯瞰深圳全城与香港新界</li>
+          <li>360 度环视城市天际线 + 深圳湾海面，天气好时能远眺香港</li>
+          <li>观光层有艺术装置与空中玻璃地板，惊险刺激</li>
+          <li>门票偏贵，但观景效果值得一上（避开多云天）</li>
+        </ul></div>
+        <div class="seg"><h5>📷 拍照打卡点</h5><ul>
+          <li>116 层观景窗边顺光拍人像剪影</li>
+          <li>深圳湾方向海面+天际线最出片</li>
+          <li>日落前登顶，能一次拍到白天与夜景</li>
+        </ul></div>
+        <div class="seg"><h5>🍜 周边美食</h5>
+          <div class="meal-chips"><span class="chip">平安金融中心商圈</span><span class="chip">福田 CBD 粤菜</span></div>
+        </div>
+        <div class="seg"><h5>🗺️ 游览动线建议</h5><ul>
+          <li>上午 9:30 登顶游览 1h → 11:00 楼下商圈午餐 → 12:00 前往高铁站/机场</li>
+        </ul></div>
+      </div>
+    </div>
+
+    <div class="stay-food">
+      <div class="sf-card"><h5>🏨 住宿建议</h5><div class="sfi"><b>返程日无住宿</b><br><small>本日为返程日，不做住宿安排</small></div></div>
+      <div class="sf-card"><h5>🍜 今日美食</h5><div class="sfi"><b>猪脚饭 / 沙井蚝</b>（人均 40-60 元）<br><small>返程前来一份地道的隆江猪脚饭或沙井蚝，为旅程画上圆满句号</small></div></div>
+    </div>
+
+    <a class="nav-btn" href="https://uri.amap.com/marker?position=114.0517,22.5333&name=平安金融中心" target="_blank"><span class="ic">🧭</span>一键导航</a>
+  </div>
+
+</section>
+
+<!-- ===== 附录层 ===== -->
+<section id="appendix" class="section-pad appendix" style="padding-top:32px">
+  <div class="section-title">
+    <div class="eyebrow"><span class="line"></span>兜底与溯源</div>
+    <h2>应急信息 & 全局 Plan B</h2>
+  </div>
+
+  <div class="stamp">
+    <span class="sic">📅</span>
+    <span><b>本路书生成于 2026-11-16 12:00（UTC+8）。</b>其中高铁车次、票价、门票、营业时间等易变信息基于该时刻实时检索核验；季节、里程、路况等稳定信息为既有知识估算。出行前请通过 12306、景区官方小程序、高德实时路况二次确认。</span>
+  </div>
+
+  <div class="grid">
+    <div class="appx-card">
+      <h4>🚨 应急信息</h4>
+      <ul>
+        <li><b>深圳紧急救援：</b>110 / 120 / 119（全国通用）；深圳救援电话 0755-83126110</li>
+        <li><b>医院：</b>深圳市第二人民医院（福田）、南山医院（南山）、北京大学深圳医院</li>
+        <li><b>汽车救援/租车故障：</b>联系租车平台 24h 客服；保险公司道路救援（自驾时）</li>
+        <li><b>景区急救：</b>世界之窗/锦绣中华/东部华侨城园区内均有医务室与工作人员</li>
+        <li><b>温馨提示：</b>海边/登山注意安全，天气突变时勿强行户外</li>
+      </ul>
+    </div>
+    <div class="appx-card">
+      <h4>🛟 全局兜底 Plan B</h4>
+      <ul>
+        <li><b>台风/极端天气：</b>深圳夏季偶有台风，出行前查台风预警，台风期间避免海边/户外，改室内（博物馆/商场）</li>
+        <li><b>行程缩短：</b>若时间紧，可砍掉 D4（锦绣中华）或 D3 东部华侨城，保留核心的深圳湾+大梅沙+世界之窗</li>
+        <li><b>旺季人流：</b>法定节假日深圳景点人流量大，务必提前线上购票+预约，错峰出行</li>
+        <li><b>返程保障：</b>返程高铁/机票尽量订在下午，给上午游览留余地，避免延误误机</li>
+      </ul>
+    </div>
+    <div class="appx-card">
+      <h4>💰 花费预估（区间估算）</h4>
+      <ul>
+        <li><b>交通（往返高铁/机票）：</b>800-2000 元/人（旺季浮动大）</li>
+        <li><b>住宿（4 晚·300-400/晚）：</b>1200-1600 元/间</li>
+        <li><b>门票：</b>世界之窗约 220 元、锦绣中华+民俗村联票约 300 元、平安金融中心 150-200 元、东部华侨城约 200 元</li>
+        <li><b>餐饮（4-5 天）：</b>600-1000 元/人</li>
+        <li><b>租车自驾（2-3 天）：</b>400-800 元（含油费）+ 停车费</li>
+        <li><b>合计参考：</b>约 3000-5000 元/人（价格获取时间 2026-11-16，旺季/节假日上浮）</li>
+      </ul>
+    </div>
+    <div class="appx-card">
+      <h4>🛒 深圳手信（伴手礼）</h4>
+      <ul>
+        <li><b>沙井蚝油/蚝豉：</b>深圳特产，蚝乡沙井的招牌</li>
+        <li><b>鹏城腊味/广式糕点：</b>百年老字号盒装伴手礼</li>
+        <li><b>深圳机场/北站：</b>站内特产商店可直接采购带走</li>
+        <li><b>推荐：</b>华强北电子小件、海岸城文创店</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+</div><!-- /.wrap -->
+
+<footer class="foot">
+  北京 → 深圳 · 4-5 天自驾/高铁双方案路书 · 生成于 2026-11-16 12:00（UTC+8）
+  <br>⚠️ 高铁车次、票价、门票、营业时间等易变信息请出行前通过 12306 / 景区官方小程序 / 高德实时核验。图片均标注来源，仅供示意。
+</footer>
+
+<!-- ECharts -->
+<script src="https://registry.npmmirror.com/echarts/5.6.0/files/dist/echarts.min.js"></script>
 <script>
-// 景点折叠
-document.querySelectorAll('.fold-btn').forEach(function(btn){
-  btn.addEventListener('click', function(){
-    var sp = btn.closest('.spot');
-    sp.classList.toggle('open');
+var placeNames = ['北京(起)', '深圳(到达)', '深圳湾公园', '大梅沙', '中英街', '返程北京(终)'];
+var AMP = 0.10, PERIOD = 10;
+var nodeData = placeNames.map(function(name, i, arr){
+  var n = arr.length, t = n > 1 ? i / (n - 1) : 0.5;
+  var x = +(0.05 + t * 0.90).toFixed(4);
+  var phase = (i % PERIOD) / PERIOD;
+  var tri = 2 * Math.abs(2 * (phase - Math.round(phase))) - 1;
+  var y = +(0.5 + AMP * tri).toFixed(4);
+  return { name: name, x: x, y: y };
+});
+var linkData = [
+  { source: '北京(起)', target: '深圳(到达)', value: '2400km·高铁/飞机' },
+  { source: '深圳(到达)', target: '深圳湾公园', value: '市区约20km' },
+  { source: '深圳湾公园', target: '大梅沙', value: '约30km' },
+  { source: '大梅沙', target: '中英街', value: '约15km' },
+  { source: '中英街', target: '返程北京(终)', value: '返程2400km' }
+];
+var routeChart = echarts.init(document.getElementById('routeMap'));
+routeChart.setOption({
+  series: [{
+    type: 'graph', layout: 'none', roam: true, scaleLimit: { min: 1, max: 8 },
+    data: nodeData, links: linkData,
+    label: { show: true, position: 'bottom', formatter: '{b}', fontSize: 12, color: '#3E5C7E' },
+    edgeLabel: { show: true, formatter: '{c}', fontSize: 10, color: '#7C92AC' },
+    lineStyle: { curveness: 0.18, width: 2, color: '#0E7C6A' },
+    itemStyle: { color: function(params){ return params.data.name.indexOf('北京') !== -1 ? '#F5A623' : '#0E7C6A'; }, borderColor: '#fff', borderWidth: 2 },
+    symbolSize: function(value, params){ return params.data.name.indexOf('北京') !== -1 ? 28 : 20; }
+  }]
+});
+window.addEventListener('resize', function(){ routeChart.resize(); });
+
+var dayRoutesData = [
+  { nodes: ['北京', '深圳', '世界之窗'], links: [
+    { source: '北京', target: '深圳', value: '2400km·高铁' },
+    { source: '深圳', target: '世界之窗', value: '市区30min' }
+  ]},
+  { nodes: ['酒店', '深圳湾公园', '红树林', '华侨城'], links: [
+    { source: '酒店', target: '深圳湾公园', value: '20km' },
+    { source: '深圳湾公园', target: '红树林', value: '2km' },
+    { source: '红树林', target: '华侨城', value: '5km' }
+  ]},
+  { nodes: ['酒店', '大梅沙', '东部华侨城', '中英街'], links: [
+    { source: '酒店', target: '大梅沙', value: '30km' },
+    { source: '大梅沙', target: '东部华侨城', value: '3km' },
+    { source: '东部华侨城', target: '中英街', value: '15km' }
+  ]},
+  { nodes: ['酒店', '锦绣中华', '民俗文化村', '市民中心'], links: [
+    { source: '酒店', target: '锦绣中华', value: '15km' },
+    { source: '锦绣中华', target: '民俗文化村', value: '1km' },
+    { source: '民俗文化村', target: '市民中心', value: '8km' }
+  ]},
+  { nodes: ['酒店', '平安金融中心', '深圳北站', '北京'], links: [
+    { source: '酒店', target: '平安金融中心', value: '5km' },
+    { source: '平安金融中心', target: '深圳北站', value: '15km' },
+    { source: '深圳北站', target: '北京', value: '返程2400km' }
+  ]}
+];
+dayRoutesData.forEach(function(route, idx){
+  var el = document.getElementById('dayMap' + (idx + 1));
+  if(!el) return;
+  var boxW = el.clientWidth, boxH = el.clientHeight;
+  var marginX = 30, marginY = 40;
+  var dnode = route.nodes.map(function(name, i, arr){
+    var n = arr.length, t = n > 1 ? i / (n - 1) : 0.5;
+    var xRatio = +(0.05 + t * 0.90).toFixed(4);
+    var phase = (i % PERIOD) / PERIOD;
+    var tri = 2 * Math.abs(2 * (phase - Math.round(phase))) - 1;
+    var yRatio = +(0.5 + AMP * tri).toFixed(4);
+    return { name: name, x: marginX + xRatio * (boxW - marginX * 2), y: marginY + yRatio * (boxH - marginY * 2), symbolSize: (i === 0 || i === route.nodes.length - 1) ? 20 : 15 };
   });
+  var chart = echarts.init(el);
+  chart.setOption({
+    series: [{
+      type: 'graph', layout: 'none', roam: true, scaleLimit: { min: 1, max: 8 },
+      data: dnode, links: route.links,
+      label: { show: true, position: 'bottom', formatter: '{b}', fontSize: 11, color: '#3E5C7E' },
+      edgeLabel: { show: true, formatter: '{c}', fontSize: 9, color: '#7C92AC' },
+      lineStyle: { curveness: 0.18, width: 1.8, color: '#0E7C6A' },
+      itemStyle: { color: function(params){ return params.data.name.indexOf('北京') !== -1 ? '#F5A623' : '#1FA98F'; }, borderColor: '#fff', borderWidth: 1.5 }
+    }]
+  });
+  window.addEventListener('resize', function(){ chart.resize(); });
 });
 
-// 锚点导航高亮（可见面积最大者）
 var navLinks = document.querySelectorAll('.nav-links a');
 var sections = [];
-navLinks.forEach(function(a){
-  var href = a.getAttribute('href');
-  if(href && href.charAt(0)==='#') sections.push(document.getElementById(href.slice(1)));
-});
-function updateNav(){
-  var navH = document.querySelector('header').offsetHeight;
-  var vh = window.innerHeight;
-  var cur = 0, best = -1;
-  sections.forEach(function(s,i){
-    if(!s) return;
-    var r = s.getBoundingClientRect();
-    var vt = Math.max(r.top, navH);
-    var vb = Math.min(r.bottom, vh);
-    var vis = Math.max(0, vb - vt);
-    if(vis > best){ best = vis; cur = i; }
-  });
-  navLinks.forEach(function(a,i){ a.classList.toggle('active', i===cur); });
+for (var i = 0; i < navLinks.length; i++) {
+  var href = navLinks[i].getAttribute('href');
+  if (href && href.charAt(0) === '#') sections.push(document.getElementById(href.replace('#', '')));
 }
-window.addEventListener('scroll', updateNav, {passive:true});
-window.addEventListener('resize', updateNav, {passive:true});
+function updateNav(){
+  var navEl = document.querySelector('.nav-links').closest('nav');
+  var navH = navEl ? navEl.offsetHeight : 0;
+  var vh = window.innerHeight;
+  var current = 0, bestVisible = -1;
+  for (var i = 0; i < sections.length; i++) {
+    if (!sections[i]) continue;
+    var r = sections[i].getBoundingClientRect();
+    var visibleTop = Math.max(r.top, navH);
+    var visibleBottom = Math.min(r.bottom, vh);
+    var visible = Math.max(0, visibleBottom - visibleTop);
+    if (visible > bestVisible) { bestVisible = visible; current = i; }
+  }
+  for (var j = 0; j < navLinks.length; j++) navLinks[j].classList.toggle('active', j === current);
+}
+window.addEventListener('scroll', updateNav, { passive: true });
+window.addEventListener('resize', updateNav, { passive: true });
 updateNav();
+
+document.querySelectorAll('.tab-btn').forEach(function(btn){
+  btn.addEventListener('click', function(){
+    document.querySelectorAll('.tab-btn').forEach(function(b){ b.classList.remove('active'); });
+    document.querySelectorAll('.tab-panel').forEach(function(p){ p.classList.remove('active'); });
+    btn.classList.add('active');
+    var panel = document.getElementById(btn.getAttribute('data-tab'));
+    if (panel) panel.classList.add('active');
+  });
+});
+
+document.querySelectorAll('.spot-head').forEach(function(head){
+  head.addEventListener('click', function(){
+    var block = head.closest('.spot-block');
+    if (block) block.classList.toggle('open');
+  });
+});
 </script>
 
 <script>(function(){
